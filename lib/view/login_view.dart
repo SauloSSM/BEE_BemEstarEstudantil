@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../controller/login_controller.dart';
+import '../main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -8,16 +10,18 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final _formKey = GlobalKey<FormState>();
+  final controller = g<LoginController>();
 
-  // Controladores para os campos
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() => setState(() {}));
+  }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    controller.removeListener(() {});
+    g.resetLazySingleton<LoginController>();
     super.dispose();
   }
 
@@ -29,7 +33,7 @@ class _LoginViewState extends State<LoginView> {
         padding: const EdgeInsets.all(32.0),
         child: Center(
           child: Form(
-            key: _formKey,
+            key: controller.formKey,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,7 +58,7 @@ class _LoginViewState extends State<LoginView> {
 
                   // Campo Email
                   TextFormField(
-                    controller: _emailController,
+                    controller: controller.emailController,
                     decoration: const InputDecoration(
                       labelText: 'E-mail',
                       border: OutlineInputBorder(),
@@ -74,7 +78,7 @@ class _LoginViewState extends State<LoginView> {
 
                   // Campo Senha
                   TextFormField(
-                    controller: _passwordController,
+                    controller: controller.passwordController,
                     decoration: const InputDecoration(
                       labelText: 'Senha',
                       border: OutlineInputBorder(),
@@ -103,17 +107,13 @@ class _LoginViewState extends State<LoginView> {
 
                   // Botão de Login
                   ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Lógica de login simulada
-                        Navigator.of(context).pushReplacementNamed('/home');
-                      }
-                    },
+                    onPressed: controller.isLoading ? null : () => controller.login(context),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    child:
-                        const Text('Entrar', style: TextStyle(fontSize: 18)),
+                    child: controller.isLoading
+                        ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white))
+                        : const Text('Entrar', style: TextStyle(fontSize: 18)),
                   ),
                   const SizedBox(height: 16),
 

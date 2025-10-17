@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controller/forgot_password_controller.dart';
+import '../main.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -9,13 +10,18 @@ class ForgotPasswordView extends StatefulWidget {
 }
 
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
-  final _controller = ForgotPasswordController();
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final controller = g<ForgotPasswordController>();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() => setState(() {}));
+  }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    controller.removeListener(() {});
+    g.resetLazySingleton<ForgotPasswordController>();
     super.dispose();
   }
 
@@ -26,7 +32,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Form(
-          key: _formKey,
+          key: controller.formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -44,7 +50,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               ),
               const SizedBox(height: 32),
               TextFormField(
-                controller: _emailController,
+                controller: controller.emailController,
                 decoration: const InputDecoration(
                   labelText: 'E-mail',
                   border: OutlineInputBorder(),
@@ -62,15 +68,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _controller.sendPasswordResetEmail(context);
-                  }
-                },
+                onPressed: controller.isLoading ? null : () => controller.sendPasswordResetEmail(context),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: const Text('Enviar Link', style: TextStyle(fontSize: 18)),
+                child: controller.isLoading
+                    ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white))
+                    : const Text('Enviar Link', style: TextStyle(fontSize: 18)),
               ),
             ],
           ),

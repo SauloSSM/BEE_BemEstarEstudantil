@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../controller/register_controller.dart';
+import '../main.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -8,25 +10,18 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final _formKey = GlobalKey<FormState>();
+  final controller = g<RegisterController>();
 
-  // Controladores para acessar os valores dos campos
-  final _nameController = TextEditingController();
-  final _dobController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() => setState(() {}));
+  }
 
   @override
   void dispose() {
-    // Limpa os controladores para evitar vazamentos de memória
-    _nameController.dispose();
-    _dobController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
+    controller.removeListener(() {});
+    g.resetLazySingleton<RegisterController>();
     super.dispose();
   }
 
@@ -36,7 +31,7 @@ class _RegisterViewState extends State<RegisterView> {
         body: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(
-            key: _formKey,
+            key: controller.formKey,
             child: SingleChildScrollView( // Evita que o teclado sobreponha os campos
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -50,7 +45,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Campo Nome
                   TextFormField(
-                    controller: _nameController,
+                    controller: controller.nameController,
                     decoration: const InputDecoration(
                       labelText: 'Nome Completo',
                       border: OutlineInputBorder(),
@@ -66,7 +61,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Campo Data de Nascimento
                   TextFormField(
-                    controller: _dobController,
+                    controller: controller.dobController,
                     decoration: const InputDecoration(
                       labelText: 'Data de Nascimento',
                       hintText: 'DD/MM/AAAA',
@@ -84,7 +79,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Campo Email
                   TextFormField(
-                    controller: _emailController,
+                    controller: controller.emailController,
                     decoration: const InputDecoration(
                       labelText: 'E-mail',
                       border: OutlineInputBorder(),
@@ -104,7 +99,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Campo Telefone
                   TextFormField(
-                    controller: _phoneController,
+                    controller: controller.phoneController,
                     decoration: const InputDecoration(
                       labelText: 'Telefone',
                       border: OutlineInputBorder(),
@@ -121,7 +116,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Campo Senha
                   TextFormField(
-                    controller: _passwordController,
+                    controller: controller.passwordController,
                     decoration: const InputDecoration(
                       labelText: 'Senha',
                       border: OutlineInputBorder(),
@@ -141,7 +136,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Campo Confirmar Senha
                   TextFormField(
-                    controller: _confirmPasswordController,
+                    controller: controller.confirmPasswordController,
                     decoration: const InputDecoration(
                       labelText: 'Confirmar Senha',
                       border: OutlineInputBorder(),
@@ -151,9 +146,8 @@ class _RegisterViewState extends State<RegisterView> {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, confirme sua senha.';
                       }
-                      if (value != _passwordController.text) {
-                        return 'As senhas não coincidem.';
-                      }
+                      // A validação de confirmação é feita no controller
+                      return controller.validateConfirmPassword(value);
                       return null;
                     },
                   ),
@@ -161,19 +155,13 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Botão de Cadastro
                   ElevatedButton(
-                    onPressed: () {
-                      // Valida o formulário antes de prosseguir
-                      if (_formKey.currentState!.validate()) {
-                        // USO DE SNACKBAR
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Cadastro (simulado) com sucesso!')),
-                        );
-                      }
-                    },
+                    onPressed: controller.isLoading ? null : () => controller.register(context),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    child: const Text('Cadastrar', style: TextStyle(fontSize: 18)),
+                    child: controller.isLoading
+                        ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white))
+                        : const Text('Cadastrar', style: TextStyle(fontSize: 18)),
                   ),
                 ],
               ),

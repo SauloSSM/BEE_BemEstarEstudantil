@@ -2,6 +2,9 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:app_project/controller/mood_tracker_controller.dart';
+import 'package:app_project/controller/login_controller.dart';
+import 'package:app_project/controller/register_controller.dart';
+import 'package:app_project/controller/forgot_password_controller.dart';
 import 'package:app_project/controller/positive_habits_controller.dart';
 import 'package:app_project/controller/self_reflection_controller.dart';
 import 'package:app_project/view/splash_screen.dart';
@@ -24,6 +27,9 @@ void setupLocator() {
   g.registerFactory(() => MoodTrackerController());
   g.registerFactory(() => PositiveHabitsController());
   g.registerFactory(() => SelfReflectionController());
+  g.registerFactory(() => LoginController());
+  g.registerFactory(() => RegisterController());
+  g.registerFactory(() => ForgotPasswordController());
 }
 
 void main() {
