@@ -165,7 +165,6 @@ class _RegisterViewState extends State<RegisterView> {
                     onPressed: () {
                       // Valida o formulário antes de prosseguir
                       if (_formKey.currentState!.validate()) {
-                        // Se o formulário for válido, pode mostrar um snackbar ou navegar.
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Cadastro (simulado) com sucesso!')),
                         );

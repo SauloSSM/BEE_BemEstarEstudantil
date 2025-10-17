@@ -1,6 +1,9 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:app_project/controller/mood_tracker_controller.dart';
+import 'package:app_project/controller/positive_habits_controller.dart';
+import 'package:app_project/controller/self_reflection_controller.dart';
 import 'package:app_project/view/splash_screen.dart';
 import 'package:app_project/view/login_view.dart';
 import 'package:app_project/view/register_view.dart';
@@ -15,8 +18,16 @@ import 'package:app_project/view/funcionalidade_positive_habits_view.dart';
 
 // BEE - Bem Estar Estudantil
 
+final g = GetIt.instance;
+
+void setupLocator() {
+  g.registerFactory(() => MoodTrackerController());
+  g.registerFactory(() => PositiveHabitsController());
+  g.registerFactory(() => SelfReflectionController());
+}
+
 void main() {
-  
+  setupLocator();
   runApp(
     DevicePreview(
       enabled: true,
@@ -35,9 +46,9 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: const Color.fromARGB(255, 185, 221, 156),
+        scaffoldBackgroundColor: const Color(0xFFF2EDDC),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromARGB(255, 185, 221, 156),
+          backgroundColor: Color(0xFFE3DECC),
         ),
       ),
       // Define as rotas do aplicativo

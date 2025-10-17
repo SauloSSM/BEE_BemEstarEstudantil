@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../controller/self_reflection_controller.dart';
+import '../main.dart';
 
 class FuncionalidadeSelfReflectionView extends StatefulWidget {
   const FuncionalidadeSelfReflectionView({super.key});
@@ -10,29 +12,16 @@ class FuncionalidadeSelfReflectionView extends StatefulWidget {
 
 class _FuncionalidadeSelfReflectionViewState
     extends State<FuncionalidadeSelfReflectionView> {
-  // Lista de perguntas de exemplo (prompts que serão feito por IA posteriormente)
-  final List<String> _prompts = [
-    "O que te trouxe alegria hoje, por menor que seja?",
-    "Qual foi o maior desafio que você enfrentou hoje e como lidou com ele?",
-    "Pelo que você se sente grato(a) neste momento?",
-    "Se você pudesse dar um conselho para si mesmo(a) no início do dia, qual seria?",
-    "Qual pequena ação você pode tomar amanhã para se aproximar de um objetivo seu?",
-  ];
-
-  // Controllers para cada campo de texto
-  late final List<TextEditingController> _controllers;
+  final controller = g<SelfReflectionController>();
 
   @override
   void initState() {
     super.initState();
-    _controllers = List.generate(_prompts.length, (_) => TextEditingController());
   }
 
   @override
   void dispose() {
-    for (final controller in _controllers) {
-      controller.dispose();
-    }
+    g.resetLazySingleton<SelfReflectionController>();
     super.dispose();
   }
 
@@ -44,7 +33,7 @@ class _FuncionalidadeSelfReflectionViewState
       ),
       body: ListView.builder(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
-        itemCount: _prompts.length,
+        itemCount: controller.prompts.length,
         itemBuilder: (context, index) {
           return Card(
             elevation: 3,
@@ -55,12 +44,12 @@ class _FuncionalidadeSelfReflectionViewState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _prompts[index],
+                    controller.prompts[index],
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 16),
                   TextField(
-                    controller: _controllers[index],
+                    controller: controller.controllers[index],
                     decoration: const InputDecoration(
                       hintText: 'Sua resposta aqui...',
                       border: OutlineInputBorder(),

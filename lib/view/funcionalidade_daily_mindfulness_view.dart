@@ -37,9 +37,7 @@ class FuncionalidadeDailyMindfulnessView extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // Seção de Áudios de Relaxamento
-            _buildSectionTitle(context, 'Áudios de Relaxamento'),
-            _buildRelaxationAudioSection(context),
+
           ],
         ),
       ),
@@ -98,22 +96,22 @@ class FuncionalidadeDailyMindfulnessView extends StatelessWidget {
     );
   }
 
-  // Seção para os áudios de relaxamento
-  Widget _buildRelaxationAudioSection(BuildContext context) {
-    return Card(
-      color: Colors.grey.shade200,
-      child: const Padding(
-        padding: EdgeInsets.all(24.0),
-        child: Center(
-          child: Text(
-            '// TODO: A lista de áudios e o player serão implementados aqui.',
-            style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
+  // // Seção para os áudios de relaxamento (removida temporariamente)
+  // Widget _buildRelaxationAudioSection(BuildContext context) {
+  //   return Card(
+  //     color: Colors.grey.shade200,
+  //     child: const Padding(
+  //       padding: const EdgeInsets.all(24.0),
+  //       child: Center(
+  //         child: Text(
+  //           '// TODO: A lista de áudios e o player serão implementados aqui.',
+  //           style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+  //           textAlign: TextAlign.center,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   // Navega para a tela do cronômetro
   void _navigateToTimer(BuildContext context, String title) {

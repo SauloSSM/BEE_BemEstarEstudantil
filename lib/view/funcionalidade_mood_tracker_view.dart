@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../controller/mood_tracker_controller.dart';
+import '../main.dart'; 
 
 class FuncionalidadeMoodTrackerView extends StatefulWidget {
   const FuncionalidadeMoodTrackerView({super.key});
@@ -10,21 +12,19 @@ class FuncionalidadeMoodTrackerView extends StatefulWidget {
 
 class _FuncionalidadeMoodTrackerViewState
     extends State<FuncionalidadeMoodTrackerView> {
-  final _noteController = TextEditingController();
-  String? _selectedMood;
+  final controller = g<MoodTrackerController>();
 
-  // Lista de humores disponíveis
-  final List<Map<String, String>> _moods = [
-    {'emoji': '😄', 'label': 'Feliz'},
-    {'emoji': '🙂', 'label': 'Bem'},
-    {'emoji': '😐', 'label': 'Normal'},
-    {'emoji': '😟', 'label': 'Triste'},
-    {'emoji': '😠', 'label': 'Irritado'},
-  ];
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   void dispose() {
-    _noteController.dispose();
+    controller.removeListener(() {});
     super.dispose();
   }
 
@@ -63,10 +63,10 @@ class _FuncionalidadeMoodTrackerViewState
             // Seleção de Humor
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: _moods.map((mood) {
-                final isSelected = _selectedMood == mood['emoji'];
+              children: controller.moods.map((mood) {
+                final isSelected = controller.selectedMood == mood['emoji'];
                 return GestureDetector(
-                  onTap: () => setState(() => _selectedMood = mood['emoji']),
+                  onTap: () => controller.selectMood(mood['emoji']!),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.all(8),
@@ -86,7 +86,7 @@ class _FuncionalidadeMoodTrackerViewState
 
             // Campo de Anotação
             TextField(
-              controller: _noteController,
+              controller: controller.noteController,
               decoration: const InputDecoration(
                 labelText: 'Anotação do dia',
                 hintText: 'O que está em sua mente?',
@@ -98,15 +98,7 @@ class _FuncionalidadeMoodTrackerViewState
 
             // Botão de Salvar
             ElevatedButton(
-              onPressed: () {
-                // Simulação de salvamento
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Humor registrado com sucesso! (Simulação)'),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-              },
+              onPressed: () => controller.saveMood(context),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
