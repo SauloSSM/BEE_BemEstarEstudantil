@@ -148,7 +148,6 @@ class _RegisterViewState extends State<RegisterView> {
                       }
                       // A validação de confirmação é feita no controller
                       return controller.validateConfirmPassword(value);
-                      return null;
                     },
                   ),
                   const SizedBox(height: 32),
