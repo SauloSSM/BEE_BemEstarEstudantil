@@ -33,6 +33,7 @@ class FuncionalidadeWellnessDashboardView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Dashboard de Bem-Estar'),
       ),
+      // USO DE LISTVIEW
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemCount: _stats.length,

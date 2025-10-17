@@ -49,6 +49,7 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
+      // USO DE LISTVIEW
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemCount: features.length,

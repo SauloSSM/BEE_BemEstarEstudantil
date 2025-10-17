@@ -34,6 +34,7 @@ class _FuncionalidadePositiveHabitsViewState
       appBar: AppBar(
         title: const Text('Desafio de Hábitos'),
       ),
+      // USO DE LISTVIEW
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemCount: controller.habits.length,

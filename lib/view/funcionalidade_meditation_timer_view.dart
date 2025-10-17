@@ -93,6 +93,7 @@ class _FuncionalidadeMeditationTimerViewState
   Future<void> _showObservationDialog(BuildContext context) async {
     final textController = TextEditingController();
 
+    // USO DE ALERTDIALOG
     await showDialog(
       context: context,
       barrierDismissible: false, // Impede que o diálogo feche ao tocar fora
@@ -116,6 +117,7 @@ class _FuncionalidadeMeditationTimerViewState
                 print('Observação registrada: ${textController.text}');
                 Navigator.of(dialogContext).pop(); // Fecha o diálogo
 
+                // USO DE SNACKBAR
                 // Feedback para o usuário com um SnackBar
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Observação registrada!')),

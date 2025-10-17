@@ -26,6 +26,7 @@ class MoodTrackerController extends ChangeNotifier {
   void saveMood(BuildContext context) {
     if (_selectedMood == null) {
       // Validação simples
+      // USO DE SNACKBAR
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Por favor, selecione um humor.'), backgroundColor: Colors.red),
       );
@@ -34,6 +35,7 @@ class MoodTrackerController extends ChangeNotifier {
 
     print('Humor salvo: $_selectedMood, Anotação: ${_noteController.text}');
 
+    // USO DE SNACKBAR
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Humor registrado com sucesso! (Simulação)'),

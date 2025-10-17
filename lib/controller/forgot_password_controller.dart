@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ForgotPasswordController {
   void sendPasswordResetEmail(BuildContext context) {
     // 1. simuLa envio de um e-mail de recuperação.
+    // USO DE SNACKBAR
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Link de recuperação enviado para o seu e-mail.'),

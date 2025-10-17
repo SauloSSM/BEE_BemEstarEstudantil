@@ -128,6 +128,7 @@ class FuncionalidadeDailyMindfulnessView extends StatelessWidget {
   void _showObservationDialog(BuildContext context) {
     final textController = TextEditingController();
 
+    // USO DE ALERTDIALOG
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -156,6 +157,7 @@ class FuncionalidadeDailyMindfulnessView extends StatelessWidget {
                 print('Observação registrada: ${textController.text}');
                 Navigator.of(dialogContext).pop(); // Fecha o diálogo
 
+                // USO DE SNACKBAR
                 // Feedback para o usuário com um SnackBar
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Observação registrada!')),

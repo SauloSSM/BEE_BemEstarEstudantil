@@ -31,6 +31,7 @@ class _FuncionalidadeSelfReflectionViewState
       appBar: AppBar(
         title: const Text('Perguntas de Reflexão'),
       ),
+      // USO DE LISTVIEW
       body: ListView.builder(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
         itemCount: controller.prompts.length,
