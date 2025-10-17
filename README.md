@@ -14,8 +14,8 @@ O aplicativo conta com as seguintes funcionalidades principais:
 - **Rastreador de Humor:** Permite que o usuário registre seu humor diário e adicione anotações.
 - **Exercício Diário de Atenção:** Oferece exercícios guiados de respiração e meditações curtas para ajudar a focar no presente.
 - **Perguntas de Autorreflexão:** Apresenta perguntas diárias para incentivar a introspecção e o autoconhecimento.
-- **Dashboard de Bem-Estar:** (Em desenvolvimento) Um painel para visualizar o progresso e os registros ao longo do tempo.
-- **Desafio de Hábitos Positivos:** (Em desenvolvimento) Uma funcionalidade para ajudar a construir e manter novos hábitos saudáveis.
+- **Dashboard de Bem-Estar:** Um painel para visualizar o progresso e os registros ao longo do tempo.
+- **Desafio de Hábitos Positivos:** Uma funcionalidade para ajudar a construir e manter novos hábitos saudáveis.
 
 ## 🛠️ Tecnologias Utilizadas
 
